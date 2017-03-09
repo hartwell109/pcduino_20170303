@@ -43,5 +43,7 @@ led(13, 12, RIGHT, 1000, function (error) {
 })
 
 module.exports = {
-    run: led
+    run: led,
+    RIGHT: RIGHT,
+    LEFT:LEFT
 }

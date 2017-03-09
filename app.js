@@ -5,11 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var xmppClient = require('simple-xmpp');
+var xmppClient = require('/modules/xmpp/xmppClient');
 
 xmppClient.on('online', function (data) {
     console.log(data.jid);
 });
+global.xmppClient = xmppClient;
 
 //接收消息
 xmppClient.on('chat', function (from, message) {
@@ -19,14 +20,6 @@ xmppClient.on('chat', function (from, message) {
 xmppClient.on('error', function (err) {
     console.err(err)
 });
-//连接消息服务器
-xmppClient.connect({
-    jid: "pcduino@localhost",
-    password: 'pcduino',
-    host: "115.182.16.117",
-    port: 5222,
-    reconnect: true
-});
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -34,6 +27,7 @@ var led = require('./routes/led');
 var motor = require('./routes/motor');
 var relay = require('./routes/relay');
 var macAdress = require('./routes/mac');
+var motor2 = require('./routes/motor2')
 
 var app = express();
 
@@ -55,6 +49,7 @@ app.use('/led', led);
 app.use('/motor', motor);
 app.use('/mac', macAdress);
 app.use('/relay', relay);
+app.use('/motor2', motor2);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
