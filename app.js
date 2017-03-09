@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var xmppClient = require('/modules/xmpp/xmppClient');
+var xmppClient = require('./modules/xmpp/xmppClient');
 
 xmppClient.on('online', function (data) {
     console.log(data.jid);
