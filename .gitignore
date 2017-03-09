@@ -1,0 +1,18 @@
+#ignore these files
+*.hprof
+.idea/*
+.gradle/*
+build/*
+bin/*
+logs/*
+*.iml
+*.eml
+.gitignore~
+*.gradle~
+transaction.log
+npm-debug.log
+*.bak
+node_modules/*
+.classpath
+.project
+classes/*
