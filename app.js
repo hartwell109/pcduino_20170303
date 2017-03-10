@@ -43,10 +43,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/run', led);
-app.use('/run', motor);
+app.use('/motor', motor);
+app.use('/motor2', motor2);
 app.use('/mac', macAdress);
 app.use('/relay', relay);
-app.use('/motor2', motor2);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

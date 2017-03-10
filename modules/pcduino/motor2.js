@@ -14,16 +14,16 @@ var setup = function (pin_pul, pin_dir, direction) {
 }
 
 //循环部分
-var loop = function (pin) {
-    pcduino.digitalWrite(pin, pcduino.HIGH);
-    pcduino.digitalWrite(pin, pcduino.LOW);
+var loop = function (pin_pul) {
+    pcduino.digitalWrite(pin_pul, pcduino.HIGH);
+    pcduino.digitalWrite(pin_pul, pcduino.LOW);
 }
 
 //执行函数部分
-var execute = function execute(pin, period) {
+var execute = function execute(pin_pul, period) {
     var i = 0;
     while (i < period) {
-        loop(pin);
+        loop(pin_pul);
         ++i;
     }
 }
