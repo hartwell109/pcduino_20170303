@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
         if (err) {
             console.log(err)
         } else {
-            res.send('The motor is ring.')
+            res.send('The motor2 is ring.')
         }
     })
 })

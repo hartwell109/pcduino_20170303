@@ -33,7 +33,9 @@ var run = function (pin_pul, pin_dir, direction, period, callback) {
     execute(pin_pul, period);
     callback;
 }
-
+run(13,12,1,1000,function () {
+    console.log('The motor2 is running.')
+})
 
 module.exports = {
     run: run,
