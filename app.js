@@ -7,9 +7,6 @@ var bodyParser = require('body-parser');
 
 var xmppClient = require('./modules/xmpp/xmppClient');
 
-xmppClient.on('online', function (data) {
-    console.log(data.jid);
-});
 global.xmppClient = xmppClient;
 
 //接收消息
