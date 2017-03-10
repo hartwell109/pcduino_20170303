@@ -28,22 +28,15 @@ var execute = function execute(pin, period) {
     }
 }
 
-var led = function (pin_pul, pin_dir, direction, period, callback) {
+var run = function (pin_pul, pin_dir, direction, period, callback) {
     setup(pin_pul, pin_dir, direction);
     execute(pin_pul, period);
     callback;
 }
 
-led(13, 12, RIGHT, 1000, function (error) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log("success")
-    }
-})
 
 module.exports = {
-    run: led,
+    run: run,
     RIGHT: RIGHT,
     LEFT:LEFT
 }

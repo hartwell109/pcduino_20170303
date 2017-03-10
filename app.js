@@ -45,8 +45,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/led', led);
-app.use('/motor', motor);
+app.use('/run', led);
+app.use('/run', motor);
 app.use('/mac', macAdress);
 app.use('/relay', relay);
 app.use('/motor2', motor2);

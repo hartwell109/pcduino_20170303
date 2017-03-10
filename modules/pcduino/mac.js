@@ -7,6 +7,7 @@ var getMacAddress = function (cb) {
         if (error) {
             cb(error, null);
         } else {
+            global.macAddress=macAddress;
             cb(null, macAddress);
         }
     })

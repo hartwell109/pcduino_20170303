@@ -1,7 +1,7 @@
 /**
  * Created by Mars on 2017/2/22.
  */
-var xmppClient = require('simple-xmpp');
+var xmppClient = global.xmppClient;
 var config = require('../config');
 
 xmppClient.on("online", function (data) {

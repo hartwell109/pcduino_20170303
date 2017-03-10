@@ -58,7 +58,7 @@ var execute = function (pins, peroid) {
 }
 
 //输出部分
-var motor = function (pins, direction, peroid, callback) {
+var run = function (pins, direction, peroid, callback) {
     console.log("pins=motor=" + pins);
     setup(pins, direction);
     execute(pins, peroid);
