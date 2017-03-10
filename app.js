@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/run', led);
+app.use('/led', led);
 app.use('/motor', motor);
 app.use('/motor2', motor2);
 app.use('/mac', macAdress);
