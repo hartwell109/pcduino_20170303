@@ -12,11 +12,10 @@ router.get('/', function (req, res, next) {
     var peroid = parseInt(req.query.peroid);
     motor2.run(pin_pul, pin_dir, dir, peroid, function (err) {
         if (err) {
-            console.log(err)
-        } else {
-            res.send('The motor2 is ring.')
+            console.log(err);
         }
     })
+    res.send('The motor2 is ring.')
 })
 
 module.exports = router;
