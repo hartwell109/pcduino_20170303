@@ -3,12 +3,12 @@
  */
 var express = require('express');
 var router = express.Router();
+var led = require("../modules/pcduino/led");
 
 
 router.get('/', function (req, res, next) {
     var pin = req.query.pin;
     var peroid = req.query.peroid;
-    var led = require("../pcduino/led");
     led.run(pin, peroid, function (err) {
         if (err) {
             console.log(err)

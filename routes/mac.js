@@ -3,9 +3,9 @@
  */
 var express = require('express');
 var router = express.Router();
+var mac = require('../modules/pcduino/mac');
 
 router.get('/', function (req, res, next) {
-    var mac = require('../pcduino/mac');
     var macAddress;
     mac.run(function (err, macAddress) {
             if (err) {
