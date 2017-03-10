@@ -66,7 +66,7 @@ var run = function (pins, direction, peroid, callback) {
 }
 module.exports =
     {
-        run: motor,
+        run: run,
         RIGHT: RIGHT,
         LEFT: LEFT
     }
