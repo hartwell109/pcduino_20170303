@@ -13,7 +13,8 @@ var setup = function (switch_pin) {
 var loop = function (switch_pin) {
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
-        console.log('result=' + result);
+        if (result > 0)
+            console.log('result=' + result);
     }
 }
 
