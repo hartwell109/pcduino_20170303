@@ -25,7 +25,7 @@ var execute = function (switch_pin) {
 var microswitch = function (switch_pin) {
     execute(switch_pin);
 }
-microswitch(13);
+microswitch(3);
 
 module.exports = {
     run: microswitch
