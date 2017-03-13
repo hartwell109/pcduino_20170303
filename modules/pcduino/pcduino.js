@@ -14,6 +14,12 @@ var pcduino = {
         fs.writeFileSync("/sys/devices/virtual/misc/gpio/pin/gpio" + pin, String(value));
     },
 
+    "digitalRead": function (pin) {
+        var fs = require('fs');
+        var result = fs.readFileSync("/sys/devices/virtual/misc/gpio/pin/gpio" + pin);
+        return result;
+    },
+
     "pinMode": function (pin, mode) {
         var fs = require('fs');
         fs.writeFileSync("/sys/devices/virtual/misc/gpio/mode/gpio" + pin, String(mode));
