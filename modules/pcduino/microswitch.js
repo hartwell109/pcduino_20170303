@@ -15,7 +15,7 @@ var setup = function (switch_pin) {
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
     pcduino.delay(100);
-    console.log('result=' + result);
+    // console.log('result=' + result);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
         pcduino.delay(300);
@@ -34,6 +34,4 @@ var execute = function (switch_pin) {
 var microswitch = function (switch_pin) {
     execute(switch_pin);
 }
-microswitch(3);
-
 module.exports = microswitch
