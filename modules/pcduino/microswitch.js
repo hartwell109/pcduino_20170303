@@ -29,7 +29,7 @@ var loop = function (switch_pin) {
 //执行部分
 var execute = function (switch_pin) {
     setup(switch_pin);
-    while (true) {
+    for (var i = 0; i < 100000; ++i) {
         loop(switch_pin);
     }
 }
