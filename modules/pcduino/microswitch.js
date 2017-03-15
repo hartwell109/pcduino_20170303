@@ -9,9 +9,11 @@ var eventEmitter = new events.EventEmitter();
 var setup = function (switch_pin) {
     console.log('switch_pin=' + switch_pin);
     pcduino.pinMode(switch_pin, pcduino.INPUT);
-    this.prototype.on('switch_on', callback);
 }
 
+var on = function (switch_on, callback) {
+    eventEmitter.on(switch_on, callback);
+};
 //循环部分
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
@@ -35,5 +37,6 @@ var microswitch = function (switch_pin) {
 // microswitch(3);
 
 module.exports = {
-    run: microswitch
+    run: microswitch,
+    on: on
 }
