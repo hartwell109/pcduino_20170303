@@ -6,13 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var xmppClient = require('./modules/xmpp/xmppClient');
-var microswitch = require('./modules/pcduino/microswitch')(3);
+//var microswitch = require('./modules/pcduino/microswitch')(3);
 
 global.xmppClient = xmppClient;
-
-microswitch.on('switch_on', function (switch_pin) {
-    console.log('The switch ' + switch_pin + 'is opened.');
-})
 
 //接收消息
 xmppClient.on('chat', function (from, message) {
