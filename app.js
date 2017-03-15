@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var xmppClient = require('./modules/xmpp/xmppClient');
-var microswitch = require('./modules/pcduino/microswitch')(2);
+var microswitch = require('./modules/pcduino/microswitch').run(2);
 
 global.xmppClient = xmppClient;
 global.microswitch = microswitch;
