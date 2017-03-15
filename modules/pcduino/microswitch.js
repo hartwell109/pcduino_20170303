@@ -14,11 +14,14 @@ var setup = function (switch_pin) {
 //循环部分
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
+    console.log('result=' + result);
     // pcduino.delay(500);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
+        pcduino.delay(500);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
+        pcduino.delay(500);
     }
 }
 
