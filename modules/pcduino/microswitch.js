@@ -3,24 +3,22 @@
  */
 var events = require('events');
 var pcduino = require('./pcduino');
-var eventEmitter = new events.EventEmitter();
 
 //初始化部分
 var setup = function (switch_pin) {
     console.log('switch_pin=' + switch_pin);
     pcduino.pinMode(switch_pin, pcduino.INPUT);
+    pcduino.pinMode(13, pcduino.OUTPUT);
 }
 
-var on = function (switch_on, callback) {
-    eventEmitter.on(switch_on, callback);
-};
 //循环部分
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
-    pcduino.delay(500);
+    // pcduino.delay(500);
     if (result > 0) {
-        eventEmitter.emit('switch_on', switch_pin);
-        console.log('result=' + result);
+        pcduino.digitalWrite(13, pcduino.HIGH);
+    } else {
+        pcduino.digitalWrite(13, pcduino.LOW);
     }
 }
 
@@ -36,7 +34,4 @@ var microswitch = function (switch_pin) {
 }
 // microswitch(3);
 
-module.exports = {
-    run: microswitch,
-    on: on
-}
+module.exports = microswitch
