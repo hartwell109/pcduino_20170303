@@ -14,6 +14,7 @@ var setup = function (switch_pin) {
 //循环部分
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
+    pcduino.delay(1000);
     console.log('result=' + result);
     // pcduino.delay(500);
     if (result > 0) {
