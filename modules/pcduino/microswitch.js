@@ -17,6 +17,7 @@ var loop = function (switch_pin) {
     pcduino.delay(100);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
+        process.send({pin_on: switch_pin});
         pcduino.delay(100);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
@@ -33,9 +34,6 @@ var microswitch = function (switch_pin) {
     execute(switch_pin);
     process.nextTick(microswitch(switch_pin))
 }
-
-
-microswitch(2);
 
 
 module.exports = microswitch
