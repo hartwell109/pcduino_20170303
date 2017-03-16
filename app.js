@@ -10,7 +10,7 @@ var xmppClient = require('./modules/xmpp/xmppClient');
 var childProcess = require('child_process');
 var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
 microswitch.on('message', function (msg) {
-    console.log('message=' + msg);
+    console.log('message=' + JSON.stringify(msg));
 })
 
 

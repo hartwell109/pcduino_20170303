@@ -17,11 +17,13 @@ var loop = function (switch_pin) {
     pcduino.delay(100);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
-        process.send(switch_pin);
+        //向主进程发送消息
+        process.send({payload: switch_pin, time: (new Date()).toLocaleString()});
         pcduino.delay(100);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
     }
+    //递归调用
     process.nextTick(loop(switch_pin));
 }
 
@@ -32,4 +34,3 @@ var microswitch = function (switch_pin) {
 }
 
 microswitch(2);
-//module.exports = microswitch
