@@ -15,15 +15,15 @@ var setup = function (switch_pin) {
 var loop = function (switch_pin) {
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
-        pcduino.delay(500);
+        pcduino.delay(250);
         if (result > 0) {
             pcduino.digitalWrite(13, pcduino.HIGH);
-            pcduino.delay(500);
+            pcduino.delay(250);
             //向主进程发送消息
             process.send({payload: switch_pin, time: (new Date()).toLocaleString()});
         } else {
             pcduino.digitalWrite(13, pcduino.LOW);
-            pcduino.delay(500);
+            pcduino.delay(250);
         }
         //递归调用
         // process.nextTick(loop(switch_pin));
