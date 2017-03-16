@@ -16,6 +16,7 @@ var setup = function (switch_pin) {
 var loop = function (switch_pin) {
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
+        console.log(result + ";" + this.status);
         if (result === 1 && this.status === 0) {
             this.status = result;
             pcduino.digitalWrite(13, pcduino.HIGH);
