@@ -16,15 +16,14 @@ var loop = function (switch_pin) {
     var status = 0;
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
-        console.log(result + ";" + status);
         if (result == 1 && status == 0) {
-            this.status = result;
+            status = result;
             pcduino.digitalWrite(13, pcduino.HIGH);
             //向主进程发送消息
             process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
         }
         if (result == 0 && status == 1) {
-            this.status = result;
+            status = result;
             pcduino.digitalWrite(13, pcduino.LOW);
             process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
         }
