@@ -3,7 +3,6 @@
  */
 var events = require('events');
 var pcduino = require('./pcduino');
-this.status = 0;
 
 //初始化部分
 var setup = function (switch_pin) {
@@ -14,19 +13,20 @@ var setup = function (switch_pin) {
 
 //循环部分
 var loop = function (switch_pin) {
+    var status = 0;
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
-        console.log(result + ";" + this.status);
-        if (result === 1 && this.status === 0) {
+        console.log(result + ";" + status);
+        if (result == 1 && status == 0) {
             this.status = result;
             pcduino.digitalWrite(13, pcduino.HIGH);
             //向主进程发送消息
-            process.send({payload: switch_pin, status: this.status, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
         }
-        if (result === 0 && this.status === 1) {
+        if (result == 0 && status == 1) {
             this.status = result;
             pcduino.digitalWrite(13, pcduino.LOW);
-            process.send({payload: switch_pin, status: this.status, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
         }
     }
 }
