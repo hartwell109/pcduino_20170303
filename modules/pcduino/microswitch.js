@@ -20,12 +20,12 @@ var loop = function (switch_pin) {
             light = result;
             pcduino.digitalWrite(13, pcduino.HIGH);
             //向主进程发送消息
-            process.send({payload: switch_pin, light: light, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, light: '1', time: (new Date()).toLocaleString()});
         }
         if (result == 0 && light == 1) {
             light = result;
             pcduino.digitalWrite(13, pcduino.LOW);
-            process.send({payload: switch_pin, light: light, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, light: '0', time: (new Date()).toLocaleString()});
         }
     }
 }
