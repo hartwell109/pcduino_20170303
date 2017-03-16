@@ -31,8 +31,11 @@ var execute = function (switch_pin) {
 
 var microswitch = function (switch_pin) {
     execute(switch_pin);
-    process.nextTick(microswitch(2))
-}();
+    process.nextTick(microswitch(switch_pin))
+}
+
+
+microswitch(2);
 
 
 module.exports = microswitch
