@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 var childProcess = require('child_process');
 
 var xmppClient = require('./modules/xmpp/xmppClient');
-var microswitch = childProcess.fork('./modules/pcduino/microswitch');
+var microswitch = childProcess.fork('./modules/pcduino/microswitch')(2);
 microswitch.on('message', function (msg) {
     console.log('message=' + msg);
 })
