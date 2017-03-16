@@ -15,10 +15,9 @@ var setup = function (switch_pin) {
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
     pcduino.delay(100);
-    // console.log('result=' + result);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
-        pcduino.delay(300);
+        pcduino.delay(100);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
     }
@@ -27,11 +26,13 @@ var loop = function (switch_pin) {
 //执行部分
 var execute = function (switch_pin) {
     setup(switch_pin);
-    while (true) {
-        loop(switch_pin);
-    }
+    loop(switch_pin);
 }
+
 var microswitch = function (switch_pin) {
     execute(switch_pin);
-}
+    process.nextTick(microswitch(2))
+}();
+
+
 module.exports = microswitch
