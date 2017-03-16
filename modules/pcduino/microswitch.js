@@ -17,22 +17,18 @@ var loop = function (switch_pin) {
     pcduino.delay(100);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
-        process.send({pin_on: switch_pin});
+        process.send(switch_pin);
         pcduino.delay(100);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
     }
+    process.nextTick(loop(switch_pin));
 }
 
 //执行部分
-var execute = function (switch_pin) {
+var microswitch = function (switch_pin) {
     setup(switch_pin);
     loop(switch_pin);
-}
-
-var microswitch = function (switch_pin) {
-    execute(switch_pin);
-    process.nextTick(microswitch(switch_pin))
 }
 
 microswitch(2);
