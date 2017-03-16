@@ -6,7 +6,7 @@ var pcduino = require('./pcduino');
 
 //初始化部分
 var setup = function (switch_pin) {
-    console.log('switch_pin=' + switch_pin);
+    console.log("switch_pin=" + pcduino.digitalRead(switch_pin));
     pcduino.pinMode(switch_pin, pcduino.INPUT);
     pcduino.pinMode(13, pcduino.OUTPUT);
 }
