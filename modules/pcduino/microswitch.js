@@ -13,19 +13,19 @@ var setup = function (switch_pin) {
 
 //循环部分
 var loop = function (switch_pin) {
-    var status = 0;
+    var light = 0;
     while (true) {
         var result = pcduino.digitalRead(switch_pin);
-        if (result == 1 && status == 0) {
-            status = result;
+        if (result == 1 && light == 0) {
+            light = result;
             pcduino.digitalWrite(13, pcduino.HIGH);
             //向主进程发送消息
-            process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, status: light, time: (new Date()).toLocaleString()});
         }
-        if (result == 0 && status == 1) {
-            status = result;
+        if (result == 0 && light == 1) {
+            light = result;
             pcduino.digitalWrite(13, pcduino.LOW);
-            process.send({payload: switch_pin, status: status, time: (new Date()).toLocaleString()});
+            process.send({payload: switch_pin, status: light, time: (new Date()).toLocaleString()});
         }
     }
 }
