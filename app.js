@@ -4,10 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var childProcess = require('child_process');
 
 var xmppClient = require('./modules/xmpp/xmppClient');
-var microswitch = childProcess.fork('./modules/pcduino/microswitch')(2);
+
+var childProcess = require('child_process');
+var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
 microswitch.on('message', function (msg) {
     console.log('message=' + msg);
 })

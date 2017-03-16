@@ -35,5 +35,5 @@ var microswitch = function (switch_pin) {
     process.nextTick(microswitch(switch_pin))
 }
 
-
-module.exports = microswitch
+microswitch(2);
+//module.exports = microswitch
