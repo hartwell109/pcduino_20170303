@@ -13,16 +13,18 @@ var setup = function (switch_pin) {
 
 //循环部分
 var loop = function (switch_pin) {
-    var result = pcduino.digitalRead(switch_pin);
-    if (result > 0) {
-        pcduino.digitalWrite(13, pcduino.HIGH);
-        //向主进程发送消息
-        process.send({payload: switch_pin, time: (new Date()).toLocaleString()});
-    } else {
-        pcduino.digitalWrite(13, pcduino.LOW);
+    while (true) {
+        var result = pcduino.digitalRead(switch_pin);
+        if (result > 0) {
+            pcduino.digitalWrite(13, pcduino.HIGH);
+            //向主进程发送消息
+            process.send({payload: switch_pin, time: (new Date()).toLocaleString()});
+        } else {
+            pcduino.digitalWrite(13, pcduino.LOW);
+        }
+        //递归调用
+        // process.nextTick(loop(switch_pin));
     }
-    //递归调用
-    process.nextTick(loop(switch_pin));
 }
 
 //执行部分
