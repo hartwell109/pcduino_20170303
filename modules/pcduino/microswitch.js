@@ -14,12 +14,10 @@ var setup = function (switch_pin) {
 //循环部分
 var loop = function (switch_pin) {
     var result = pcduino.digitalRead(switch_pin);
-    pcduino.delay(100);
     if (result > 0) {
         pcduino.digitalWrite(13, pcduino.HIGH);
         //向主进程发送消息
         process.send({payload: switch_pin, time: (new Date()).toLocaleString()});
-        pcduino.delay(100);
     } else {
         pcduino.digitalWrite(13, pcduino.LOW);
     }
