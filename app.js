@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var xmppClient = require('./modules/xmpp/xmppClient');
 
 var childProcess = require('child_process');
+
+//派生子线程对指定pin监听
 var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
 microswitch.on('message', function (msg) {
     console.log('message=' + JSON.stringify(msg));
