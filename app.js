@@ -34,6 +34,7 @@ var motor = require('./routes/motor');
 var relay = require('./routes/relay');
 var macAdress = require('./routes/mac');
 var motor2 = require('./routes/motor2');
+
 var app = express();
 
 // view engine setup
