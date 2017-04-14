@@ -5,20 +5,20 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var xmppClient = require('./modules/xmpp/xmppClient');
 
-var childProcess = require('child_process');
 
 //派生子线程对指定pin监听
+var childProcess = require('child_process');
 var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
 microswitch.on('message', function (msg) {
     console.log('message=' + JSON.stringify(msg));
 })
 
 
+//XMPP消息接收监听
+var xmppClient = require('./modules/xmpp/xmppClient');
 global.xmppClient = xmppClient;
 
-//接收消息
 xmppClient.on('chat', function (from, message) {
     console.log("from:" + from + ";message:" + message);
     xmppClient.send(from, "echo:" + message);
