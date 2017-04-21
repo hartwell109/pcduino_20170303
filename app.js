@@ -6,7 +6,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 
-
 //派生子线程对指定pin监听
 var childProcess = require('child_process');
 var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
@@ -34,6 +33,7 @@ var motor = require('./routes/motor');
 var relay = require('./routes/relay');
 var macAdress = require('./routes/mac');
 var motor2 = require('./routes/motor2');
+var socketio = require('./routes/socketio');
 
 var app = express();
 
@@ -56,6 +56,7 @@ app.use('/motor', motor);
 app.use('/motor2', motor2);
 app.use('/mac', macAdress);
 app.use('/relay', relay);
+app.user('/socketio', socketio);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
