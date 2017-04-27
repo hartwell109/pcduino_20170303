@@ -1,11 +1,12 @@
 /**
- * Created by Mars on 2017/4/21.
+ * Created by Mars on 2017/4/23.
  */
 var express = require('express');
 var router = express.Router();
 
-router.get('/', function (req, res) {
-    res.sendfile(__dirname + 'views/socketio.html');
+/* GET users listing. */
+router.get('/', function(req, res) {
+    res.sendfile("./views/socketio.html");
 });
 
 module.exports = router;

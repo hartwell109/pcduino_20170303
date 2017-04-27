@@ -15,7 +15,7 @@ var bodyParser = require('body-parser');
 
 //派生子线程对指定pin监听
 var childProcess = require('child_process');
-var microswitch = childProcess.fork('./modules/pcduino/microswitch.js');
+var microswitch = childProcess.fork('modules/pcduino/microswitch.js');
 microswitch.on('message', function (msg) {
     console.log('message=' + JSON.stringify(msg));
 })
@@ -35,12 +35,9 @@ var socketio = require('./routes/socketio');
 
 var app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -56,14 +53,12 @@ app.use('/mac', macAdress);
 app.use('/relay', relay);
 app.use('/socketio', socketio);
 
-// catch 404 and forward to error handler
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
 });
 
-// error handler
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
@@ -73,8 +68,6 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error');
 });
-
-
 
 /**
  * Get port from environment and store in Express.
@@ -90,11 +83,9 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require("socket.io")(server);
 
-
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
@@ -120,9 +111,7 @@ io.on('connection', function (socket) {
 
 });
 
-
 var xmppClient = global.xmppClient;
-
 xmppClient.on('chat', function (from, message) {
     console.log("from:" + from + ";message:" + message);
     xmppClient.send(from, "echo:" + message);
@@ -136,7 +125,6 @@ xmppClient.on('error', function (err) {
 /**
  * Normalize a port into a number, string, or false.
  */
-
 function normalizePort(val) {
     var port = parseInt(val, 10);
 
@@ -149,14 +137,12 @@ function normalizePort(val) {
         // port number
         return port;
     }
-
     return false;
 }
 
 /**
  * Event listener for HTTP server "error" event.
  */
-
 function onError(error) {
     if (error.syscall !== 'listen') {
         throw error;
@@ -184,7 +170,6 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
 function onListening() {
     var addr = server.address();
     var bind = typeof addr === 'string'

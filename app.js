@@ -17,14 +17,15 @@ microswitch.on('message', function (msg) {
 //XMPP消息接收监听
 var xmppClient = require('./modules/xmpp/xmppClient');
 global.xmppClient = xmppClient;
-
-xmppClient.on('chat', function (from, message) {
-    console.log("from:" + from + ";message:" + message);
-    xmppClient.send(from, "echo:" + message);
-})
-xmppClient.on('error', function (err) {
-    console.err(err)
-});
+//
+// xmppClient.on('chat', function (from, message) {
+//     console.log("from:" + from + ";message:" + message);
+//     xmppClient.send(from, "echo:" + message);
+//     global.socket.emit('news',message);
+// })
+// xmppClient.on('error', function (err) {
+//     console.err(err)
+// });
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -56,7 +57,7 @@ app.use('/motor', motor);
 app.use('/motor2', motor2);
 app.use('/mac', macAdress);
 app.use('/relay', relay);
-app.user('/socketio', socketio);
+app.use('/socketio', socketio);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Socketio</title><script src="/modules/socketio/socket.io.js"></script>
+    <title>Socketio</title><script src="http://localhost:3000/views/socket.io.js"></script>
     <script>
-        var socket = io.connect('http://localhost');
+        var socket = io.connect('http://localhost:3000');
         socket.on('news', function (data) {
             console.log(data);
             socket.emit('my other event', { my: 'data' });
