@@ -1,24 +1,25 @@
 /**
- * Created by Mars on 2017/4/25.
+ * Created by Mars on 2017/5/2.
  */
-var io = require('socket.io');
 var config = require('../config');
-var socketio;
-//socket部分
-io.on('connection', function (socket) {
-    //接收并处理客户端的hi事件
-    socketio = socket;
-    socketio.on('hi', function (data) {
-        global.socket = socket;
+module.exports = function (server, callback) {
+    var io = require('socket.io')(server);
+    io.on('connection', function (socket) {
+        socket.on('hi', function (data) {
+            console.log(data);
+            socket.emit('news', 'echo:' + data + new Date())
+        })
+        console.log('socket is connected');
+        callback(null, io);
+    })
+    io.on('error', function (err) {
+        console.log(err);
+        callback(err, null);
+    })
+    io.on('hi', function (data) {
         console.log(data);
-
-        //触发客户端事件c_hi
-        socketio.emit('news', 'hello too!')
+        io.emit('new', 'hello' + new Date())
     })
+}
 
-    //断开事件
-    socketio.on('disconnect', function (data) {
-        console.log('断开', data)
-        socket.emit('c_leave', '离开');
-    })
-});
+

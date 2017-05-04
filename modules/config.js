@@ -1,5 +1,5 @@
 /**
- * Created by Mars on 2017/3/9.
+ * Created by Mars on 2017/5/2.
  */
 var config = {
     xmpp: {
@@ -7,6 +7,19 @@ var config = {
         password: 'pcduino',
         host: '47.93.49.110',
         port: 5222
+    },
+    serialport: {
+        url: "COM4",
+        baudRate: 9600,
+        dataBits: 8,
+        stopBits: 1,
+        parity: 'none'
+    },
+    socketio: {},
+    mqtt:{
+        url:'mqtt://test.mosquitto.org',
+
     }
 }
-module.exports = config;
+
+module.exports = config

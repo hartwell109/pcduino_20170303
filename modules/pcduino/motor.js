@@ -1,77 +1,53 @@
 /**
- * Created by Mars on 2017/2/16.
+ * Created by Mars on 2017/5/2.
  */
 var pcduino = require("./pcduino");
-
-var RIGHT = 1;
-var LEFT = 0;
-var pins;
+var RIGHT = pcduino.LOW;
+var LEFT = pcduino.HIGH;
 
 //初始化部分
-var setup = function (pins, direction) {
-    switch (direction) {
-        case RIGHT:
-            this.pins = pins;
-            break;
-        case LEFT:
-            this.pins = pins.reverse();
-            break;
-    }
-    console.log("pins=setup=" + pins);
-    var length = pins.length;
-    for (var i = 0; i < length; ++i) {
-        pcduino.pinMode(pins[i], pcduino.OUTPUT);
-    }
+var setup = function (pin_pul, pin_dir, direction) {
+    console.log("pin-setup=" + pin_pul);
+    pcduino.pinMode(pin_pul, pcduino.OUTPUT);
+    pcduino.pinMode(pin_dir, pcduino.OUTPUT);
+    pcduino.digitalWrite(pin_dir, direction);
 }
 
 //循环部分
-var loop = function (pins) {
-    console.log("pins=loop=" + pins);
-    pcduino.digitalWrite(pins[0], pcduino.HIGH);
-    pcduino.digitalWrite(pins[1], pcduino.LOW);
-    pcduino.digitalWrite(pins[2], pcduino.LOW);
-    pcduino.digitalWrite(pins[3], pcduino.HIGH);
-    pcduino.delay(2);
-    pcduino.digitalWrite(pins[0], pcduino.HIGH);
-    pcduino.digitalWrite(pins[1], pcduino.HIGH);
-    pcduino.digitalWrite(pins[2], pcduino.LOW);
-    pcduino.digitalWrite(pins[3], pcduino.LOW);
-    pcduino.delay(2);
-    pcduino.digitalWrite(pins[0], pcduino.LOW);
-    pcduino.digitalWrite(pins[1], pcduino.HIGH);
-    pcduino.digitalWrite(pins[2], pcduino.HIGH);
-    pcduino.digitalWrite(pins[3], pcduino.LOW);
-    pcduino.delay(2);
-    pcduino.digitalWrite(pins[0], pcduino.LOW);
-    pcduino.digitalWrite(pins[1], pcduino.LOW);
-    pcduino.digitalWrite(pins[2], pcduino.HIGH);
-    pcduino.digitalWrite(pins[3], pcduino.HIGH);
-    pcduino.delay(2);
+var loop = function (pin_pul) {
+    pcduino.digitalWrite(pin_pul, pcduino.HIGH);
+    pcduino.delay(10)
+    pcduino.digitalWrite(pin_pul, pcduino.LOW);
+    pcduino.delay(10)
 }
 
-//执行部分
-var execute = function (pins, peroid) {
-    console.log("pins=execute=" + pins);
-    for (var i = 0; i < peroid; ++i) {
-        loop(pins);
+//执行函数部分
+var execute = function execute(pin_pul, period) {
+    var i = 0;
+    while (i < period) {
+        loop(pin_pul);
+        ++i;
     }
 }
 
-//输出部分
-var run = function (pins, direction, peroid, callback) {
-    console.log("pins=motor=" + pins);
-    setup(pins, direction);
-    execute(pins, peroid);
+var run = function (pin_pul, pin_dir, direction, period, callback) {
+    setup(pin_pul, pin_dir, direction);
+    execute(pin_pul, period);
     callback;
 }
-module.exports =
-    {
-        run: run,
-        RIGHT: RIGHT,
-        LEFT: LEFT
+
+//
+module.exports = {
+    run: run,
+    RIGHT: RIGHT,
+    LEFT: LEFT
+}
+
+//
+run(8, 7, 1, 200 * 5, function (err) {
+    if (err) {
+        console.log(err)
+    } else {
+        console.log('sucess')
     }
-
-// motor([8, 9, 10, 11], 1, 1000, function () {
-//     console.log("Motor is runing finished!")
-// })
-
+})

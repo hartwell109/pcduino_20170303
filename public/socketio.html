@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Socketio</title>
-    <script src="./socket.io.js"></script>
+    <script src="./javascripts/socket.io.js"></script>
 </head>
 <body>
 
 <h1>Socket.io</h1>
 <button id="sendBtn" onclick="socket.emit('hi','hello!')">发送消息</button>
 <button id="leaveBtn">离开</button>
+<div id="displayLab"></div>
 <script type="text/javascript">
     var socket = io.connect('http://localhost:3000');
-    var send = document.getElementById('sendBtn');
+    var send = document.getElementById('displayLab');
     socket.on('news', function (data) {
         console.log(data)
-        send.innerHTML = data;
+        send.innerHTML += data + "<br/>";
     });
 </script>
 </body>
