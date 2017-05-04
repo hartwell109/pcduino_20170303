@@ -9,7 +9,7 @@ var config = {
         port: 5222
     },
     serialport: {
-        url: "COM4",
+        url: "COM1",
         baudRate: 9600,
         dataBits: 8,
         stopBits: 1,
