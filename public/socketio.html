@@ -8,13 +8,13 @@
 <body>
 
 <h1>Socket.io</h1>
-<button id="sendBtn" onclick="socket.emit('hi','hello!')">发送消息</button>
+<button id="sendBtn" onclick="socket.emit('toServer','hello!')">发送消息</button>
 <button id="leaveBtn">离开</button>
 <div id="displayLab"></div>
 <script type="text/javascript">
-    var socket = io.connect('http://localhost:3000/');
+    var socket = io.connect('http://localhost:3000', {reconnect: true});
     var send = document.getElementById('displayLab');
-    socket.on('news', function (data) {
+    socket.on('toClient', function (data) {
         console.log(data)
         send.innerHTML += data + "<br/>";
     });

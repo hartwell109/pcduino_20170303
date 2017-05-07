@@ -14,17 +14,10 @@ module.exports = function (callback) {
         callback(err, null);
     });
 
-    xmpp.on('chat', function (from, message) {
-        console.log('from:' + from + '\n' + 'message:' + message);
-        xmpp.send(from, 'echo:' + message);
-    })
-
     xmpp.connect({
         jid: config.xmpp.jid,
         password: config.xmpp.password,
         host: config.xmpp.host,
         port: config.xmpp.port
     });
-
-
 }

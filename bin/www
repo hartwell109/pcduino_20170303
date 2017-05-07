@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('pcduino-20170404:server');
 var http = require('http');
+var config = require('../modules/config')
 
 /**
  * Get port from environment and store in Express.
@@ -20,60 +21,48 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
-/**
- *
- */
 var async = require('async');
-
-/**
- *
- */
-require('../modules/xmpp/xmpp')(function (error, xmpp) {
-    if (error) {
-        console.log(error)
-    } else {
-        global.xmpp = xmpp
+async.series({
+    xmpp: function (callback) {
+        require('../modules/xmpp/xmpp')(callback);
+    },
+    mqtt: function (callback) {
+        require('../modules/mqtt/mqtt')(callback);
+    },
+    serialport: function (callback) {
+        require('../modules/serialport/serialport')(callback);
+    },
+    socketio: function (callback) {
+        require('../modules/socketio/socketio')(server, callback);
     }
-})
-
-/**
- *
- */
-require('../modules/serialport/serialport')(function (err, serialport) {
-    if (err) {
-        console.log(err)
-    } else {
-        global.serialport = serialport;
-    }
-})
-
-/**
- *
- */
-require('../modules/socketio/socketio')(server, function (err, io) {
+}, function (err, results) {
     if (err) {
         console.log(err);
     } else {
-        global.io = io;
-    }
-})
+        results.mqtt.subscribe('presence');
+        results.mqtt.publish('presence', 'mqtt good!');
 
-/**
- *
- */
-require('../modules/mqtt/mqtt')(function (err, mqttClient) {
-    if (err) {
-        console.log(err)
-    } else {
-        global.mqttClient = mqttClient;
+        results.socketio.on('connection', function (socket) {
+            console.log('socket.io is connected');
+            socket.on('toServer', function (data) {
+                console.log(data);
+                results.socketio.emit('toClient', data + new Date())
+                // results.xmpp.send('pcduino@47.93.49.110', 'echo:' + data);
+            })
+        })
+
+        results.xmpp.on('chat', function (from, message) {
+            console.log('from:' + from + ';' + 'message:' + message);
+            // results.xmpp.send(from, 'echo:' + message);
+            results.socketio.emit('toClient', message);
+            results.mqtt.publish('presence', "mqtt:" + message);
+        })
     }
-})
+});
 
 /**
  * Listen on provided port, on all network interfaces.
  */
-
 server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);

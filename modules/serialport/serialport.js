@@ -10,7 +10,6 @@ module.exports = function (callback) {
         baudRate: config.serialport.baudRate,
         dataBits: config.serialport.dataBits,
         stopBits: config.serialport.stopBits
-
     });
     serialport.open(function (err) {
         if (err) {

@@ -103,7 +103,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var parsed = url(uri);
 	  var source = parsed.source;
 	  var id = parsed.id;
-	  var path = parsed.url;
+	  var path = parsed.path;
 	  var sameNamespace = cache[id] && path in cache[id].nsps;
 	  var newConnection = opts.forceNew || opts['force new connection'] || false === opts.multiplex || sameNamespace;
 
@@ -124,7 +124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } else if (opts && 'object' === _typeof(opts.query)) {
 	    opts.query = encodeQueryString(opts.query);
 	  }
-	  return io.socket(parsed.url, opts);
+	  return io.socket(parsed.path, opts);
 	}
 	/**
 	 *  Helper method to parse query objects to string.
@@ -201,7 +201,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  loc = loc || global.location;
 	  if (null == uri) uri = loc.protocol + '//' + loc.host;
 
-	  // relative url support
+	  // relative path support
 	  if ('string' === typeof uri) {
 	    if ('/' === uri.charAt(0)) {
 	      if ('/' === uri.charAt(1)) {
@@ -234,7 +234,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 
-	  obj.url = obj.url || '/';
+	  obj.path = obj.path || '/';
 
 	  var ipv6 = obj.host.indexOf(':') !== -1;
 	  var host = ipv6 ? '[' + obj.host + ']' : obj.host;
@@ -3268,7 +3268,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 	  opts = opts || {};
 
-	  opts.url = opts.url || '/socket.io';
+	  opts.path = opts.path || '/socket.io';
 	  this.nsps = {};
 	  this.subs = [];
 	  this.opts = opts;
@@ -3877,7 +3877,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.query = opts.query || {};
 	  if ('string' === typeof this.query) this.query = parseqs.decode(this.query);
 	  this.upgrade = false !== opts.upgrade;
-	  this.path = (opts.url || '/engine.io').replace(/\/$/, '') + '/';
+	  this.path = (opts.path || '/engine.io').replace(/\/$/, '') + '/';
 	  this.forceJSONP = !!opts.forceJSONP;
 	  this.jsonp = false !== opts.jsonp;
 	  this.forceBase64 = !!opts.forceBase64;
@@ -5388,7 +5388,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function Transport (opts) {
-	  this.path = opts.url;
+	  this.path = opts.path;
 	  this.hostname = opts.hostname;
 	  this.port = opts.port;
 	  this.secure = opts.secure;

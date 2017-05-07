@@ -3,8 +3,8 @@
  */
 var config = {
     xmpp: {
-        jid: 'pcduino@47.93.49.110',
-        password: 'pcduino',
+        jid: 'react@47.93.49.110',
+        password: 'react',
         host: '47.93.49.110',
         port: 5222
     },
