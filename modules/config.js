@@ -3,8 +3,8 @@
  */
 var config = {
     xmpp: {
-        jid: 'react@47.93.49.110',
-        password: 'react',
+        jid: 'pcduino@t1.xmpp.yibeikafei.cn',
+        password: 'pcduino',
         host: '47.93.49.110',
         port: 5222
     },
@@ -15,10 +15,12 @@ var config = {
         stopBits: 1,
         parity: 'none'
     },
-    socketio: {},
-    mqtt:{
-        url:'mqtt://test.mosquitto.org',
-
+    socketio: {
+        port: 3333
+    },
+    mqtt: {
+        url: 'mqtt://test.mosquitto.org',
+        topic: 'topic'
     }
 }
 

@@ -3,15 +3,27 @@
  */
 var config = require('../config');
 
-module.exports = function (server, callback) {
-    var io = require('socket.io')(server);
-    // // io.of('/chat');
-    // io.on('connection', function (socket) {
-    //     console.log('socket.io is connected');
-    // })
+var io = require('socket.io')();
 
-    io.on('disconnect', function () {
-        console.log('socket.io disconnect')
+io.on('connection', function (socket) {
+    socket.on('toServer', function (data) {
+        var msg = {
+            channel: 'socketio',
+            title: 'toServer',
+            payload: data,
+            timestamp: new Date()
+        }
+        process.send(msg);
     })
-    callback(null, io);
-}
+})
+
+io.listen(config.socketio.port);
+
+process.on('message', function (msg) {
+    io.emit('toClient', msg.payload);
+})
+
+io.on('disconnect', function () {
+    console.log('socket.io disconnect')
+})
+

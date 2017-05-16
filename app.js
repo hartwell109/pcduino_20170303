@@ -4,10 +4,36 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var child_process = require('child_process');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var socketio = require('./routes/socketio');
+var socket = require('./routes/socketio');
+/**
+ *
+ */
+var xmpp = child_process.fork('./modules/xmpp/xmpp');
+var serialport = child_process.fork('./modules/serialport/serialport');
+var socketio = child_process.fork('./modules/socketio/socketio');
+var mqtt = child_process.fork('./modules/mqtt/mqtt');
+
+xmpp.on('message', function (msg) {
+    console.log(msg);
+    socketio.send(msg);
+})
+
+socketio.on('message', function (msg) {
+    socketio.send(msg)
+    console.log(msg)
+})
+
+serialport.on('message', function (msg) {
+    console.log(msg)
+})
+
+mqtt.on('message', function (msg) {
+    console.log(msg)
+})
 
 var app = express();
 
@@ -25,7 +51,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/socketio', socketio);
+app.use('/socket', socket);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

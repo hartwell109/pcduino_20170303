@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Socketio</title>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3333/socket.io/socket.io.js"></script>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 <button id="leaveBtn">离开</button>
 <div id="displayLab"></div>
 <script type="text/javascript">
-    var socket = io.connect('http://localhost:3000', {reconnect: true});
+    var socket = io.connect('http://localhost:3333', {reconnect: true});
     var send = document.getElementById('displayLab');
     socket.on('toClient', function (data) {
         console.log(data)

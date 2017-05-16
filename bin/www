@@ -21,44 +21,6 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-var async = require('async');
-async.series({
-    xmpp: function (callback) {
-        require('../modules/xmpp/xmpp')(callback);
-    },
-    mqtt: function (callback) {
-        require('../modules/mqtt/mqtt')(callback);
-    },
-    serialport: function (callback) {
-        require('../modules/serialport/serialport')(callback);
-    },
-    socketio: function (callback) {
-        require('../modules/socketio/socketio')(server, callback);
-    }
-}, function (err, results) {
-    if (err) {
-        console.log(err);
-    } else {
-        results.mqtt.subscribe('presence');
-        results.mqtt.publish('presence', 'mqtt good!');
-
-        results.socketio.on('connection', function (socket) {
-            console.log('socket.io is connected');
-            socket.on('toServer', function (data) {
-                console.log(data);
-                results.socketio.emit('toClient', data + new Date())
-                // results.xmpp.send('pcduino@47.93.49.110', 'echo:' + data);
-            })
-        })
-
-        results.xmpp.on('chat', function (from, message) {
-            console.log('from:' + from + ';' + 'message:' + message);
-            // results.xmpp.send(from, 'echo:' + message);
-            results.socketio.emit('toClient', message);
-            results.mqtt.publish('presence', "mqtt:" + message);
-        })
-    }
-});
 
 /**
  * Listen on provided port, on all network interfaces.

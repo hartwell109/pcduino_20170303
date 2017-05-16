@@ -4,17 +4,30 @@
 var config = require('../config');
 var mqtt = require('mqtt');
 
-module.exports = function (callback) {
-    var client = mqtt.connect(config.mqtt.url);
+var client = mqtt.connect(config.mqtt.url);
 
-    client.on('connect', function () {
-        console.log('mqtt has connected.')
-    })
+client.on('connect', function () {
+    var msg = {
+        channel: 'mqtt',
+        title: '',
+        payload: 'mqtt has connected.',
+        timestamp: new Date()
+    }
+    process.send(msg);
+})
 
-    client.on('message', function (topic, message) {
-        // message is Buffer
-        console.log(message.toString())
-        // client.end()
-    })
-    callback(null, client);
-}
+client.subscribe(config.mqtt.topic);
+
+client.on('message', function (topic, message) {
+    var msg = {
+        channel: 'mqtt',
+        topic: topic,
+        payload: message,
+        timestamp: new Date()
+    }
+    process.send(msg);
+})
+
+process.on('message', function (msg) {
+    client.publish(config.mqtt.topic, msg);
+})
