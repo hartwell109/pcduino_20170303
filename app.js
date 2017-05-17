@@ -9,8 +9,9 @@ var child_process = require('child_process');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var socket = require('./routes/socketio');
+
 /**
- *
+ * 加载通讯模块
  */
 var xmpp = child_process.fork('./modules/xmpp/xmpp');
 var serialport = child_process.fork('./modules/serialport/serialport');
@@ -19,7 +20,7 @@ var mqtt = child_process.fork('./modules/mqtt/mqtt');
 
 xmpp.on('message', function (msg) {
     console.log(msg);
-    socketio.send(msg);
+    serialport.send(msg);
 })
 
 socketio.on('message', function (msg) {
@@ -29,6 +30,7 @@ socketio.on('message', function (msg) {
 
 serialport.on('message', function (msg) {
     console.log(msg)
+    socketio.send(msg);
 })
 
 mqtt.on('message', function (msg) {

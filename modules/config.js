@@ -9,7 +9,7 @@ var config = {
         port: 5222
     },
     serialport: {
-        url: "COM1",
+        url: "/dev/ttyUSB0",
         baudRate: 9600,
         dataBits: 8,
         stopBits: 1,

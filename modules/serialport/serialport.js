@@ -18,19 +18,24 @@ serialport.open(function (err) {
     }
 });
 
-process.on('message',function (data) {
-    serialport.println(data.payload);
-})
-
-serialport.on('data', function (data) {
-    process.send({channel: 'serialport', title: 'data', payload: data});
-
-});
-
 serialport.on('open', function () {
     process.send({channel: 'serialport', title: 'open', payload: 'SerialPort has been opened.'});
 });
 
+process.on('message', function (msg) {
+    serialport.write(msg.payload, function (err) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log('port has been write ' + msg);
+        }
+    });
+})
+
+serialport.on('data', function (data) {
+    process.send({channel: 'serialport', title: 'data', payload: data.toString()});
+
+});
 
 serialport.on('error', function () {
     process.send({channel: 'serialport', title: 'error', payload: error});
